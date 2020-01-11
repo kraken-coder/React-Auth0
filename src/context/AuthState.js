@@ -85,7 +85,7 @@ const AuthState = (props) => {
         loginWithRedirect: (...p) => auth0Client.loginWithRedirect(...p),
         getTokenSilently: (...p) => auth0Client.getTokenSilently(...p),
         getTokentClaims: (...p) => auth0Client.getTokentClaims(...p),
-        logOut: (...p) => auth0Client.logOut(...p)
+        logout: (...p) => auth0Client.logout(...p)
       }}
     >
       {children}

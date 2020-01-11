@@ -4,7 +4,7 @@ import AuthContext from './context/authContext';
 
 const App = () => {
   const authContext = useContext(AuthContext);
-  const { user, loading, loginWithRedirect } = authContext;
+  const { user, loading, loginWithRedirect, logout } = authContext;
 
   return (
     <div className='hero is-info is-fullheight'>
@@ -22,6 +22,12 @@ const App = () => {
             <>
               <h1>You are now Logged in!</h1>
               <p>Hello {user.name}</p>
+              <button
+                onClick={() => logout({ returnTo: window.location.origin })}
+                className='button is-small is-dark'
+              >
+                logout
+              </button>
             </>
           )}
         </div>

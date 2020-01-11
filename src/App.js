@@ -1,26 +1,31 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useContext } from 'react';
+import 'bulma/css/bulma.css';
+import AuthContext from './context/authContext';
 
-function App() {
+const App = () => {
+  const authContext = useContext(AuthContext);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className='hero is-info is-fullheight'>
+      <div className='hero-body'>
+        <div className='container has-text-centered'>
+          <h1>Click Below!</h1>
+          <button
+            onClick={authContext.loginWithRedirect}
+            className='button is-danger'
+          >
+            Login
+          </button>
+          <button
+            onClick={console.log(process.env.REACT_APP_CLIENT_ID)}
+            className='button is-danger'
+          >
+            Console log
+          </button>
+        </div>
+      </div>
     </div>
   );
-}
+};
 
 export default App;

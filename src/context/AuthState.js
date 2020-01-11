@@ -33,16 +33,21 @@ const AuthState = (props) => {
       type: SET_LOADING
     });
   };
+
   const initializeAuth0 = async () => {
     const auth0Client = await createAuth0Client(config);
-    const isAuthenticated = await auth0Client.isAuthenticated();
-    const user = isAuthenticated ? await auth0Client.getUser() : null;
-    setLoading();
-
     dispatch({
       type: SET_AUTH,
       payload: auth0Client
     });
+
+    if (window.location.search.includes('code=')) {
+      return handleRedirectCallBack();
+    }
+    const isAuthenticated = await auth0Client.isAuthenticated();
+    const user = isAuthenticated ? await auth0Client.getUser() : null;
+    setLoading();
+
     dispatch({
       type: IS_AUTHENTICATED,
       payload: isAuthenticated
@@ -52,7 +57,22 @@ const AuthState = (props) => {
       payload: user
     });
   };
+  const handleRedirectCallBack = async () => {
+    const auth0Client = await createAuth0Client(config);
+    await auth0Client.handleRedirectCallback();
 
+    const user = await auth0Client.getUser();
+    setLoading();
+    dispatch({
+      type: GET_USER,
+      payload: user
+    });
+    dispatch({
+      type: IS_AUTHENTICATED,
+      payload: true
+    });
+    window.history.replaceState({}, document.title, window.location.pathname);
+  };
   const { auth0Client, loading, isAuthenticated, user } = state;
   const { children } = props;
   return (

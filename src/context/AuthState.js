@@ -19,7 +19,8 @@ const AuthState = (props) => {
   const config = {
     domain: process.env.REACT_APP_DOMAIN,
     client_id: process.env.REACT_APP_CLIENT_ID,
-    redirect_uri: window.location.origin
+    redirect_uri: window.location.origin,
+    prompt: 'none'
   };
 
   useEffect(() => {
